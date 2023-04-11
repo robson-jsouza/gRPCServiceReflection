@@ -105,3 +105,8 @@ Note: add the following line under `syntax = "proto3";` to have the gRPC files g
 `</ItemGroup>`  
 
 7. Clean and rebuild your client project in order to have the gRPC files generated and you can use its classes to connect to the server.
+
+## Credits:
+
+https://www.youtube.com/watch?v=U8kTRj1wfPc
+https://martinbjorkstrom.com/posts/2020-07-08-grpc-reflection-in-net
