@@ -1,5 +1,3 @@
-using Grpc.Core;
-using gRPCServerReflection;
 using ProtoBuf;
 using System.ServiceModel;
 
