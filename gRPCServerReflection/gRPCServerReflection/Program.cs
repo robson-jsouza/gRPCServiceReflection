@@ -3,7 +3,13 @@ using gRPCServerReflection.Services;
 using Microsoft.Extensions.Logging.Console;
 using ProtoBuf.Grpc.Server;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    // this is to force the local address and port.
+    // Useful for working in a team where different ports from machine to machine would cause settings to be changed accordingly.
+    // Example: Args = new string[] { "https://localhost:7131" }
+    Args = args
+});
 
 // Additional configuration is required to successfully run gRPC on macOS.
 // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682

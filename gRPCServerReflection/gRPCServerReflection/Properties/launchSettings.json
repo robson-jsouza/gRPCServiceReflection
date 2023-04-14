@@ -2,6 +2,7 @@
   "profiles": {
     "gRPCServerReflection": {
       "commandName": "Project",
+      "commandLineArgs": "--urls https://localhost:7131",
       "dotnetRunMessages": false,
       "launchBrowser": false,
       "applicationUrl": "http://localhost:5131;https://localhost:7131",
