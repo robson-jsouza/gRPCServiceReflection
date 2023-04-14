@@ -1,4 +1,6 @@
+using gRPCServerReflection.Exceptions;
 using gRPCServerReflection.Services;
+using Microsoft.Extensions.Logging.Console;
 using ProtoBuf.Grpc.Server;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,8 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
 
 // Add services to the container.
-builder.Services.AddCodeFirstGrpc();
+builder.Services.AddCodeFirstGrpc(options =>
+{
+    options.Interceptors.Add<ExceptionInterceptor>();
+});
+
 builder.Services.AddCodeFirstGrpcReflection();
+
+builder.Services.AddSingleton<ILoggerProvider, ConsoleLoggerProvider>();
 
 var app = builder.Build();
 

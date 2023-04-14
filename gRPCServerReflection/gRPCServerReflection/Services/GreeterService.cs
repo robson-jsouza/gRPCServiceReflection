@@ -1,4 +1,5 @@
 using ProtoBuf;
+using ProtoBuf.Grpc;
 using System.ServiceModel;
 
 namespace gRPCServerReflection.Services
@@ -6,7 +7,7 @@ namespace gRPCServerReflection.Services
     [ServiceContract]
     public interface IGreeter
     {
-        ValueTask<HelloReply> SayHello(HelloRequest request);
+        ValueTask<HelloReply> SayHello(HelloRequest request, CallContext context = default);
     }
 
     [ProtoContract]
@@ -31,8 +32,13 @@ namespace gRPCServerReflection.Services
             _logger = logger;
         }
 
-        public ValueTask<HelloReply> SayHello(HelloRequest request)
+        public ValueTask<HelloReply> SayHello(HelloRequest request, CallContext context = default)
         {
+            if (request.Name.Contains("Exception"))
+            {
+                throw new Exception("Request Name should not be empty.");
+            }
+
             return new ValueTask<HelloReply>(new HelloReply
             {
                 Message = "Hello " + request.Name

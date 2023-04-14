@@ -7,7 +7,22 @@ Console.ReadLine();
 
 using var channel = GrpcChannel.ForAddress("https://localhost:7131");
 var client = new Greeter.GreeterClient(channel);
-var reply = await client.SayHelloAsync(new HelloRequest { Name = "GreeterClient" });
-Console.WriteLine($"Greetings: {reply.Message}");
+var forceExceptionToHappen = true; // NOTE: this variable determines if it is to throwing an Exception or not
+
+try
+{
+    var request = new HelloRequest { Name = "GreeterClient" };
+    if (forceExceptionToHappen)
+        request.Name = $"${request.Name}Exception";
+
+    var reply = await client.SayHelloAsync(request);
+
+    Console.WriteLine($"Greetings: {reply.Message}");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"${ex.Message}\n");
+}
+
 Console.WriteLine("Press any key to exit...");
 Console.ReadLine();
