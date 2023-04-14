@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "gRPCClient";
+
+package gRPCServerReflection.Services.Interfaces;
+
+message HelloReply {
+  string Message = 1;
+}
+
+message HelloRequest {
+  string Name = 1;
+}
+
+service Greeter {
+   rpc SayHello(gRPCServerReflection.Services.Interfaces.HelloRequest) returns (gRPCServerReflection.Services.Interfaces.HelloReply);
+}
+
