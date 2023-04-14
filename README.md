@@ -97,3 +97,16 @@ Examples of available services found:
 Note: add the following line under `syntax = "proto3";` to have the gRPC files generated under the same project namespace when building the project and having those files easier to reference and use:
 
 `option csharp_namespace = "gRPCClient";`
+
+6. Put the following code in the .csproj file of your client project according to the name of your proto file:
+
+`<ItemGroup>`  
+ ` <Protobuf Include="Protos\gRPCServerReflection.Services.Greeter.proto" GrpcServices="Client" />`  
+`</ItemGroup>`  
+
+7. Clean and rebuild your client project in order to have the gRPC files generated and you can use its classes to connect to the server.
+
+## Credits:
+
+https://www.youtube.com/watch?v=U8kTRj1wfPc  
+https://martinbjorkstrom.com/posts/2020-07-08-grpc-reflection-in-net
