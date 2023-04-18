@@ -198,8 +198,31 @@ All is necessary is to catch the exceptions in the client side and handle them a
 `    Console.WriteLine($"${ex.Message}\n");`  
 `}`  
 
+## gRPC retry policy
+
+A retry policy is configured once when a gRPC channel is created in the client side, just like the example below:
+
+`var defaultMethodConfig = new MethodConfig`  
+`{`  
+`    Names = { MethodName.Default }, // it's applied to all gRPC methods called by this channel`  
+`    RetryPolicy = new RetryPolicy`  
+`    {`  
+`        MaxAttempts = 5,`  
+`        InitialBackoff = TimeSpan.FromSeconds(1),   // the initial dealy, in this case, 1 second`  
+`        MaxBackoff = TimeSpan.FromSeconds(5),   // Backoff value must no be greater thant 5 seconds`  
+`        BackoffMultiplier = 1.5,    // the Backoff value is multiplied by BackoffMultiplier after each retry`  
+`        RetryableStatusCodes = { StatusCode.Unavailable }`  
+`    }`  
+`};`  
+
+`var channel = GrpcChannel.ForAddress("https://localhost:7131", new GrpcChannelOptions`  
+`{`  
+`    ServiceConfig = new ServiceConfig { MethodConfigs = { defaultMethodConfig } }`  
+`});`  
+
 ## Credits:
 
 https://www.youtube.com/watch?v=U8kTRj1wfPc  
 https://martinbjorkstrom.com/posts/2020-07-08-grpc-reflection-in-net
 https://anthonygiretti.com/2022/08/28/asp-net-core-6-handling-grpc-exception-correctly-server-side/
+https://learn.microsoft.com/en-us/aspnet/core/grpc/retries?view=aspnetcore-7.0
