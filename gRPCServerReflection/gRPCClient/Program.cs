@@ -33,6 +33,8 @@ try
     if (forceExceptionToHappen)
         request.Name = $"${request.Name}Exception";
 
+    // this gRPC method will run x times (in this case it is set to five: "MaxAttempts = 5,")
+    // until it gets a success call, if all of them fail, then an Exception is  thrown and it is caught here
     var reply = await client.SayHelloAsync(request);
 
     Console.WriteLine($"Greetings: {reply.Message}");
