@@ -218,7 +218,9 @@ A retry policy is configured once when a gRPC channel is created in the client s
 `var channel = GrpcChannel.ForAddress("https://localhost:7131", new GrpcChannelOptions`  
 `{`  
 `    ServiceConfig = new ServiceConfig { MethodConfigs = { defaultMethodConfig } }`  
-`});`  
+`});` 
+
+It tries x times (in this case, it is set to 5) and if all of them fail, an Exception will be thrown, otherwise, it succeed because it means at least one of the retries succeed.
 
 ## Credits:
 
