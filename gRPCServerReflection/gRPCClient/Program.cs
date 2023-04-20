@@ -16,7 +16,7 @@ var defaultMethodConfig = new MethodConfig
         InitialBackoff = TimeSpan.FromSeconds(1),   // the initial dealy, in this case, 1 second
         MaxBackoff = TimeSpan.FromSeconds(5),   // Backoff value must no be greater thant 5 seconds
         BackoffMultiplier = 1.5,    // the Backoff value is multiplied by BackoffMultiplier after each retry
-        RetryableStatusCodes = { StatusCode.Unavailable }
+        RetryableStatusCodes = { StatusCode.Internal }
     }
 };
 
